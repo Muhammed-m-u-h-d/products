@@ -1,0 +1,165 @@
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import Footer from "./Footer";
+import { MdOutlineFavorite } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { IoIosArrowDown } from "react-icons/io";
+
+function Card() {
+  const [data, setData] = useState({});
+  const [showqty, setShowqty]= useState(false);
+  const [quantity, setQuantity]= useState(1);
+  const { id } = useParams("id");
+  useEffect(() => {
+    axios
+      .get(`https://dummyjson.com/products/${id}`)
+      .then((res) => {
+        //console.log(res.data.dimensions);
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+ // console.log(data);
+
+ function handleImageClick(val){
+    return ()=>{
+      setData({...data,thumbnail:val})
+    }
+
+ }
+
+ function Quantity(){
+  let qty = [];
+    setShowqty(!showqty);
+    for(let i=1; i<=data.minimumOrderQuantity;i++){
+      qty.push(i);
+    }
+   // setQuantity(qty);
+ }
+ console.log(quantity);
+  return (
+    <>
+      <div className="p-4">
+        <div className="border p-3 rounded-lg">
+          <div className="flex justify-end">
+          <MdOutlineFavorite className="text-red-500" size={30} />
+          </div>
+          <img src={data.thumbnail} alt="" className="h-100 object-cover duration-300" />
+          <div className="flex gap-3 p-3  border border-gray-500 justify-center rounded-2xl bg-gray-100 shadow-md shadow-gray-500  ">
+            {
+              data.images?.map((val,i)=>(
+                <img key={i} src={val} className="h-18 border shadow-lg shadow-gray-400 active:scale-95 duration-100" onClick={handleImageClick(val)} />
+              ))
+            }
+          </div>
+        </div>
+        <div className="border-b-3 pb-1 border-gray-400  ">
+        <div>
+          <p className="text-3xl font-semibold">
+            {data.title} | {data.brand} | {data.category}
+          </p>
+          {data.tags?.map((val, i) => (
+            <span key={i} className="text-gray-500 mr-3 text-md">#{val}</span>
+          ))}
+          <p className="text-3xl font-bold"><span className="text-red-800 text-2xl ">Discount : </span>${data.discountPercentage}</p>
+          <p className="text-xl font-semibold text-gray-500">MSRP : <span className="line-through">${data.price}</span></p>
+          <p className="text-gray-500 text-xl">
+            <strong>Rating : </strong>
+           <span className="text-2xl font-semibold">{data.rating}</span> 
+          </p>
+          <p className="text-green-700 text-xl font-semibold pt-2">{data.availabilityStatus}</p>
+           
+           <div className="flex gap-3 items-center p-3 border border-gray-500 rounded-md w-full justify-between mt-3">
+              <p className="text-xl font-semibold pt-2">Quantity : 1</p>
+              <IoIosArrowDown size={25} onClick={Quantity}/>
+              
+           </div>
+           { showqty ? (
+               <div className="text-xl">{quantity}</div>
+           ) : null }
+         
+        
+          <div className="p-3 pb-0 pt-5 flex justify-center">
+          <button className="bg-orange-700 text-white p-6 text-center rounded-full text-2xl font-semibold w-90">Add to Cart</button>
+          </div>
+          <div className="p-3 pt-2 flex justify-center">
+          <button className="bg-yellow-600 p-6 text-center text-3xl text-white font-semibold  rounded-full w-100  ">Buy Now</button>
+          </div>
+          </div>
+          <p className="text-xl font-semibold text-center pb-2">{data.shippingInformation}</p>
+          <p className="text-xl text-red-600 font-semibold text-center border-t-3 border-gray-400">{data.returnPolicy}</p>
+        </div>
+        <div className="pt-5 border p-3 mt-5 rounded-md">
+          <h2 className="text-xl font-bold">Product Details : </h2>
+
+          <div className="grid grid-cols-2 text-lg pt-5 [line-height:3rem] ">
+            <p>
+              <strong>Brand</strong>
+            </p>
+            <p>{data.brand}</p>
+            <p>
+              <strong>Category</strong>
+            </p>
+            <p>{data.category}</p>
+            <p>
+              <strong>Stock</strong>
+            </p>
+            <p>{data.stock}</p>
+            <p>
+              <strong>SKU</strong>
+            </p>
+            <p>{data.sku}</p>
+            <p>
+              <strong>Weight</strong>
+            </p>
+            <p>{data.weight}</p>
+            <p>
+              <strong>Dimensions</strong>
+            </p>
+            <div>
+              {data.dimensions ? (
+                <div className="[line-height:2rem]">
+                  <p>Width : {data.dimensions.width}</p>
+                  <p>Height : {data.dimensions.height}</p>
+                  <p>depth : {data.dimensions.depth}</p>
+                </div>
+              ) : null}
+            </div>
+            <p>
+              <strong>Warranty</strong>
+            </p>
+            <p>{data.warrantyInformation}</p>
+          </div>
+        </div>
+        <div className="pt-5 text-xl text-gray-800 border-b-3 pb-3 border-gray-400">
+          <p>
+            <strong className="text-black">description : </strong>
+            {data.description}
+          </p>
+        </div>
+        <div className="mt-5 border p-2 pb-0 rounded-md">
+          <h2 className="text-2xl font-semibold text-gray-500 p-1">Reviews : </h2>
+          <div className="pt-5 text-gray-800 text-lg">
+            {data.reviews?.map((val, i) => (
+              <div key={i} className="border-b-2 border-gray-300 pb-3 mb-3">
+                <div className="flex gap-2 items-center ">
+                  <FaUserCircle size={35} />
+                  <p className="text-xl font-semibold">{val.reviewerName}</p>
+                </div>
+                <p>{val.reviewerEmail}</p>
+                <p>{val.date}</p>
+                <p className="p-3">{val.comment}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+export default Card;
