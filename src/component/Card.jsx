@@ -19,7 +19,7 @@ function Card() {
       .get(`https://dummyjson.com/products/${id}`)
       .then((res) => {
         setData(res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -37,6 +37,13 @@ function Card() {
   function Quantity() {
     setShowqty(!showqty);
   }
+
+  const ogPrice = data.price;
+  const disprice = data.discountPercentage;
+
+  const discount = Math.round(((ogPrice - disprice) / ogPrice) * 100);
+
+  const save = ogPrice - disprice;
 
   return (
     <>
@@ -71,17 +78,26 @@ function Card() {
                 #{val}
               </span>
             ))}
-            <p className="text-3xl font-bold">
-              <span className="text-red-800 text-2xl ">Discount : </span>$
-              {data.discountPercentage}
-            </p>
-            <p className="text-lg font-semibold text-gray-500">
-              MSRP : <span className="line-through">${data.price}</span>
-            </p>
             <p className="text-gray-500">
               <strong>Rating : </strong>
               <span className="text-xl font-semibold">{data.rating}</span>
             </p>
+            <div className=" bg-green-200/50 rounded-md p-2 pl-3">
+              <div className="flex gap-3 text-2xl pb-2">
+                <p className=" text-green-800 font-semibold">{discount}%</p>
+                <p className=" font-semibold  ">
+                  <span className="line-through text-gray-500">
+                    {" "}
+                    ${data.price}
+                  </span>
+                </p>
+                <p className=" font-bold">${data.discountPercentage}</p>
+              </div>
+              <p className=" w-40 p-2 rounded-lg font-bold text-center bg-white ">
+                Save Now{" "}
+                <span className="text-green-500"> ${save.toFixed(2)}</span>
+              </p>
+            </div>
             <p className="text-green-700 text-lg font-semibold pt-2">
               {data.availabilityStatus}
             </p>
@@ -92,35 +108,32 @@ function Card() {
             </div>
             {showqty && (
               <div className="flex justify-end">
-              <div className="border border-gray-300 h-35 overflow-y-scroll rounded-md mt-2 bg-white shadow-md shadow-gray-300 w-30">
-                {qtyList.map((q) => (
-                  <p
-                    key={q} 
-                    className="p-3  border border-gray-100"
-                    onClick={() => {
-                      setQuantity(q);
-                      setShowqty(false);
-                    }}
-                  >
-                    {q}
-                  </p>
-                ))}
-              </div>
+                <div className="border border-gray-300 h-35 overflow-y-scroll rounded-md mt-2 bg-white shadow-md shadow-gray-300 w-30">
+                  {qtyList.map((q) => (
+                    <p
+                      key={q}
+                      className="p-3  border border-gray-100"
+                      onClick={() => {
+                        setQuantity(q);
+                        setShowqty(false);
+                      }}
+                    >
+                      {q}
+                    </p>
+                  ))}
+                </div>
               </div>
             )}
-           
-           <div className="flex justify-center  gap-3 text-xl  p-3 bg-white w-full  text-white border-black">
+
+            <div className="flex justify-center  gap-3 text-xl  p-3 bg-white w-full  text-white border-black">
               <button className="border bg-orange-500 p-4 flex items-center gap-1 rounded-xl">
-                 <IoMdCart/>
+                <IoMdCart />
                 Add to Cart
               </button>
               <button className="border bg-yellow-500 p-4 rounded-xl w-35">
                 Buy Now
-                </button>
-           </div>
-
-
-
+              </button>
+            </div>
           </div>
           <p className="text-lg font-semibold text-center pb-2">
             {data.shippingInformation}
@@ -183,7 +196,10 @@ function Card() {
           </h2>
           <div className="pt-5 text-gray-800 text-lg">
             {data.reviews?.map((val, i) => (
-              <div key={i} className="border p-2 rounded-xl bg-gray-100 border-gray-300 pb-3 mb-3">
+              <div
+                key={i}
+                className="border p-2 rounded-xl bg-gray-100 border-gray-300 pb-3 mb-3"
+              >
                 <div className="flex gap-2 items-center pb-1">
                   <FaUserCircle size={30} />
                   <p className="text-lg font-semibold">{val.reviewerName}</p>
@@ -196,7 +212,7 @@ function Card() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
