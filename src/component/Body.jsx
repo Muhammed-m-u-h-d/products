@@ -28,7 +28,7 @@ function Body() {
             <Link to={`/card/${val.id}`} >
             <div
               key={val.id}
-              className="border border-gray-500 rounded-xl shadow- shadow-gray-400   "
+              className="border border-gray-300 rounded-xl shadow- shadow-gray-400   "
             >
               <img src={val.thumbnail} className="w-full" />
               <div className="flex flex-col  justify-end  text-center  h-20">
