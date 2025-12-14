@@ -5,7 +5,7 @@ import { TbMenuDeep } from "react-icons/tb";
 import { CgMenuRightAlt } from "react-icons/cg";
 function Navbar() {
   return (
-    <div className='backdrop-blur-xl bg-transparent  bg-none shadow-md shadow-gray-300 fixed top-0 w-full z-100'>
+    <div className='  bg-white shadow-md shadow-gray-300 fixed top-0 w-full z-100'>
       <div className=' flex justify-between p-4 pt-3 pb-8 items-Center'> 
         <h1 className='text-3xl font-bold text-yellow-800'>Mart<span className='text-yellow-500'>X</span></h1>
         <CgMenuRightAlt size={35}/>

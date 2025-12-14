@@ -10,7 +10,7 @@ function Body() {
     axios
       .get(`https://dummyjson.com/products`)
       .then((res) => {
-        console.log(res.data.products);
+        //console.log(res.data.products);
         setData(res.data.products);
       })
       .catch((err) => console.log(err));
@@ -28,17 +28,18 @@ function Body() {
             <Link to={`/card/${val.id}`} >
             <div
               key={val.id}
-              className="border text-center   rounded-2xl shadow-lg shadow-gray-400 "
+              className="border border-gray-500 rounded-xl shadow-sm shadow-gray-400   "
             >
               <img src={val.thumbnail} className="w-full" />
-
-              <h1 className="text-xl font-semibold text-gray-800">
+              <div className="flex flex-col  justify-end  text-center  h-20">
+              <h1 className="text-lg font-semibold text-gray-800  ">
                 {val.title.length > 15
                   ? val.title.slice(0, 15) + "..."
-                  : val.title}
+                  : val.title }
               </h1>
 
-              <h2 className="text-2xl font-bold  pb-2">${val.price}</h2>
+              <h2 className="text-2xl font-bold  pb-2 ">${val.price}</h2>
+              </div>
             </div>
             </Link>
           ))}

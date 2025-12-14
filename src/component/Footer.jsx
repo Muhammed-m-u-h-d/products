@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <>
-    <div className="bg-black p-5">
+    <div className="bg-black p-5 z-50">
       <h1 className="text-3xl font-bold text-yellow-800 text-center">
         Mart<span className="text-yellow-500">X</span>
       </h1>
