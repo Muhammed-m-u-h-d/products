@@ -8,11 +8,13 @@ import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoMdCart } from "react-icons/io";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 function Card() {
   const [data, setData] = useState({});
   const [showqty, setShowqty] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [fav,setFav]=useState(false)
   const { id } = useParams("id");
   useEffect(() => {
     axios
@@ -44,13 +46,16 @@ function Card() {
   const discount = Math.round(((ogPrice - disprice) / ogPrice) * 100);
 
   const save = ogPrice - disprice;
+  
+
+  
 
   return (
     <>
       <div className="p-4">
         <div className="border border-gray-300 p-3 rounded-lg">
-          <div className="flex justify-end">
-            <MdOutlineFavorite className="text-red-500" size={30} />
+          <div className="flex justify-end" onClick={()=> setFav(!fav) }>
+            {fav ?  <MdOutlineFavorite className="text-red-500" size={30} /> :<MdOutlineFavoriteBorder size={30}/>}
           </div>
           <img
             src={data.thumbnail}
@@ -93,7 +98,7 @@ function Card() {
                 </p>
                 <p className=" font-bold">${data.discountPercentage}</p>
               </div>
-              <p className=" w-40 p-2 rounded-lg font-bold text-center bg-white ">
+              <p className=" w-50 p-2 rounded-lg font-bold text-center bg-white">
                 Save Now{" "}
                 <span className="text-green-500"> ${save.toFixed(2)}</span>
               </p>
