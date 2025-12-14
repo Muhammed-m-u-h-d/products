@@ -12,7 +12,7 @@ function Navbar() {
       </div>
       <div className='flex items-center justify-center p-2 pb-2  w-full '>
         <FaSearch size={25} className='relative left-4 '/>
-        <input type="text" placeholder='Search fashion items...' className='border p-3 rounded-full w-full text-xl pl-13 ml-[-25px] '/>
+        <input type="text" placeholder='Search fashion items...' className='border border-gray-300 p-3 rounded-full w-full text-xl pl-13 ml-[-25px] outline-none'/>
       </div>
     </div>
   )

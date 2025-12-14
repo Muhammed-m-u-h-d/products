@@ -48,7 +48,7 @@ function Card() {
           <img
             src={data.thumbnail}
             alt=""
-            className="h-95 object-cover duration-300"
+            className=" object-cover duration-300"
           />
           <div className="flex gap-3 p-3  border border-gray-300 justify-center rounded-2xl bg-gray-100 shadow-md shadow-gray-500  ">
             {data.images?.map((val, i) => (
@@ -61,7 +61,7 @@ function Card() {
             ))}
           </div>
         </div>
-        <div className="border-b-3 pb-1 border-gray-300  ">
+        <div className="border-b-2 pb-1 border-gray-100  ">
           <div>
             <p className="text-3xl font-semibold">
               {data.title} | {data.brand} | {data.category}
@@ -75,28 +75,28 @@ function Card() {
               <span className="text-red-800 text-2xl ">Discount : </span>$
               {data.discountPercentage}
             </p>
-            <p className="text-xl font-semibold text-gray-500">
+            <p className="text-lg font-semibold text-gray-500">
               MSRP : <span className="line-through">${data.price}</span>
             </p>
-            <p className="text-gray-500 text-xl">
+            <p className="text-gray-500">
               <strong>Rating : </strong>
-              <span className="text-2xl font-semibold">{data.rating}</span>
+              <span className="text-xl font-semibold">{data.rating}</span>
             </p>
             <p className="text-green-700 text-lg font-semibold pt-2">
               {data.availabilityStatus}
             </p>
 
-            <div className="flex gap-3 items-center p-3 border border-gray-500 rounded-md w-full justify-between mt-3">
-              <p className="text-lg">Quantity : {quantity}</p>
-              <IoIosArrowDown size={20} onClick={Quantity} />
+            <div className="flex gap-3 items-center p-3 border border-gray-300 rounded-md w-full justify-between mt-3">
+              <p>Quantity : {quantity}</p>
+              <IoIosArrowDown size={15} onClick={Quantity} />
             </div>
             {showqty && (
               <div className="flex justify-end">
-              <div className="border border-gray-400 h-35 overflow-y-scroll rounded-md mt-2 bg-white shadow-xl shadow-black  w-30">
+              <div className="border border-gray-300 h-35 overflow-y-scroll rounded-md mt-2 bg-white shadow-md shadow-gray-300 w-30">
                 {qtyList.map((q) => (
                   <p
                     key={q} 
-                    className="p-3  border border-gray-200 active:bg-grey-500 duration-300"
+                    className="p-3  border border-gray-100"
                     onClick={() => {
                       setQuantity(q);
                       setShowqty(false);
@@ -125,7 +125,7 @@ function Card() {
           <p className="text-lg font-semibold text-center pb-2">
             {data.shippingInformation}
           </p>
-          <p className="text-lg text-red-600 font-semibold text-center border-t-3 border-gray-300">
+          <p className="text-lg text-red-600 font-semibold text-center border-t-2 border-gray-100">
             {data.returnPolicy}
           </p>
         </div>
@@ -171,7 +171,7 @@ function Card() {
             <p>{data.warrantyInformation}</p>
           </div>
         </div>
-        <div className="pt-5 text-sm text-gray-800 border-b-3 pb-3 border-gray-300">
+        <div className="pt-5 text-sm text-gray-800 border-b-2 pb-3 border-gray-100">
           <p>
             <strong className="text-black">description : </strong>
             {data.description}
@@ -184,9 +184,9 @@ function Card() {
           <div className="pt-5 text-gray-800 text-lg">
             {data.reviews?.map((val, i) => (
               <div key={i} className="border p-2 rounded-xl bg-gray-100 border-gray-300 pb-3 mb-3">
-                <div className="flex gap-2 items-center ">
-                  <FaUserCircle size={35} />
-                  <p className="text-xl font-semibold">{val.reviewerName}</p>
+                <div className="flex gap-2 items-center pb-1">
+                  <FaUserCircle size={30} />
+                  <p className="text-lg font-semibold">{val.reviewerName}</p>
                 </div>
                 <p className="text-sm">{val.reviewerEmail}</p>
                 <p className="text-sm">{val.date}</p>
